@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+    <head >
+        <meta charset="UTF-8">
+        <title>심정공유 추첨</title>
+        <link rel="shortcut icon" type="image/x-icon" href="c:/VScode/WebWorkspace/random/random.ico">
+        <style>@import url(심정공유.css);</style>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    </head>
+    <body>
+        <h2 class="container c1"><b>열외자를 선택해주세요</b>
+            <hr>
+            <div class="squad s1">
+                <div class="squad member m1" id="강수훈">강수훈</div>
+                <div class="squad member m2" id="류메이">류메이</div>
+                <div class="squad member m3" id="한금진">한금진</div>
+                <div class="squad member m4" id="장승진">장승진</div>
+                <div class="squad member m5" id="브라이안">브라이안</div>
+                <div class="squad member m6" id="켄신">켄신</div>
+                <div class="squad member m7" id="안명준">안명준</div>
+            </div>
+            <div class="squad s2">
+                <div class="squad member m8" id="신요나">신 요나</div>
+                <div class="squad member m9" id="소노카">소노카</div>
+                <div class="squad member m10" id="이심은">이심은</div>
+                <div class="squad member m11" id="이문희">이문희</div>
+                <div class="squad member m12" id="모토미">모토미</div>
+                <div class="squad member m13" id="김연정">김연정</div>
+                <div class="squad member m14" id="유리아">유리아</div>
+            </div>
+            <div class="squad 3">
+                <div class="squad member m15" id="세이레이">세이레이</div>
+                <div class="squad member m16" id="에리카">에리카</div>
+                <div class="squad member m17" id="김윤희">김윤희</div>
+                <div class="squad member m18" id="가연">가연</div>
+                <div class="squad member m19" id="가나">가나</div>
+                <div class="squad member m20" id="이정현">이정현</div>
+                <div class="squad blank">&nbsp</div>
+            </div>
+            <br>
+            <div class="blank b1"></div>
+            <button class="btn" onclick="exclude()">확인</button>
+        </h2>
+        <div class="blank_back"></div>
+        <div class="container c2">
+            <div class="txt_area">
+                <span class="txt t1">오늘의 심정공유는</span>
+                <span class="slot_container">
+                    <ul class="slide_box" id="slide_box">
+                        <li>&nbsp</li>
+                    </ul>
+                </span>
+                <span class="empty"></span>
+                <span class="txt t2">생도가 해주시겠습니다.</span>
+            </div>
+            <div class="blank b3"></div>
+            <div class="btn_area">
+                <button class="btn2" onclick="draw()">추첨하기</button>
+                <div class="blankbtn"></div> 
+                <button class="btn2" onclick="reset()">초기화</button>
+            </div>
+        </div>
+        <script src="심정공유.js"></script>
+    </body>
+</html> 
