@@ -3,6 +3,11 @@ let myArray = ["강수훈", "류메이", "한금진", "장승진",
 "이문희", "모토미", "김연정", "유리아", "세이레이", 
 "에리카", "김윤희", "가연", "가나", "이정현"];
 
+let copyArray = [];
+myArray.forEach(function(item) {
+    copyArray.push(item);
+});
+
 let m1 = document.querySelector('.m1');
 let m2 = document.querySelector('.m2');
 let m3 = document.querySelector('.m3');
@@ -114,109 +119,103 @@ function exclude() {
     for(let i=1;i<21;i++) {
         let check = eval('x'+i)%2
         if(check==1){
-            delete myArray[i-1]
+            delete copyArray[i-1]
         } else {
 
         }
     }
     console.log(myArray);
+    console.log(copyArray);
 }
 
 let touch = 0;
 
-function draw() {
+function roulette() {
     const ul = document.querySelector('.slide_box');
+
+    function shuffle(array) {
+        for (let index = array.length - 1; index > 0; index--) {
+            const randomPosition = Math.floor(Math.random() * (index + 1));
+        
+            const temporary = array[index];
+            array[index] = array[randomPosition];
+            array[randomPosition] = temporary;
+        }
+    }
     
-    if(touch==0){
-        function shuffle(array) {
-            for (let index = array.length - 1; index > 0; index--) {
-                const randomPosition = Math.floor(Math.random() * (index + 1));
-            
-                const temporary = array[index];
-                array[index] = array[randomPosition];
-                array[randomPosition] = temporary;
+    function removeItem() {
+        const items = ul.getElementsByTagName('li'); 
+    
+        while(items.length>0){
+            items[0].remove();
+        }
+    }
+    
+    function addList()  {
+        filtered  = copyArray.filter(function(item) {
+            return item !== null && item !== undefined && item !== '';
+        });
+    
+        shuffle(filtered);
+    
+        for(i=0;i<20;i++){
+            if(i<filtered.length){
+                const addValue = filtered[i];
+                const li = document.createElement("li");
+                
+                li.setAttribute('id',addValue);
+                
+                const textNode = document.createTextNode(addValue);
+                li.appendChild(textNode);
+                
+                document
+                    .getElementById('slide_box')
+                    .appendChild(li);
+            } else {
+                j = Math.floor(Math.random()*filtered.length)
+                const addValue = filtered[j];
+                const li = document.createElement("li");
+                
+                li.setAttribute('id',addValue);
+                
+                const textNode = document.createTextNode(addValue);
+                li.appendChild(textNode);
+                
+                document
+                    .getElementById('slide_box')
+                    .appendChild(li);
             }
         }
+    }
     
-        function removeItem() {
-            const items = ul.getElementsByTagName('li'); 
+    //ul.style.webkitAnimationPlayState = 'running';
+    removeItem();
+    const li0 = document.createElement("li");
+    li0.setAttribute('id','&nbsp');
+    document.getElementById('slide_box').append(li0);
+    addList();
+    console.log(filtered);
+    console.log(document.querySelector('.slide_box'));
     
-            while(items.length>0){
-                items[0].remove();
-            }
-        }
-    
-        function addList()  {
-            filtered  = myArray.filter(function(item) {
-                return item !== null && item !== undefined && item !== '';
-            });
-    
-            shuffle(filtered);
-    
-            for(i=0;i<20;i++){
-                if(i<filtered.length){
-                    const addValue = filtered[i];
-                    const li = document.createElement("li");
-                    
-                    li.setAttribute('id',addValue);
-                    
-                    const textNode = document.createTextNode(addValue);
-                    li.appendChild(textNode);
-                    
-                    document
-                        .getElementById('slide_box')
-                        .appendChild(li);
-                } else {
-                    j = Math.floor(Math.random()*filtered.length)
-                    const addValue = filtered[j];
-                    const li = document.createElement("li");
-                    
-                    li.setAttribute('id',addValue);
-                    
-                    const textNode = document.createTextNode(addValue);
-                    li.appendChild(textNode);
-                    
-                    document
-                        .getElementById('slide_box')
-                        .appendChild(li);
-                }
-            }
-        }
-    
-        //ul.style.webkitAnimationPlayState = 'running';
-        removeItem();
-        const li0 = document.createElement("li");
-        li0.setAttribute('id','&nbsp');
-        document.getElementById('slide_box').append(li0);
-        addList();
-        //console.log(myArray);
-        console.log(filtered);
-        console.log(document.querySelector('.slide_box'));
-    
-        setTimeout(function() {
-            console.log('stop');
-            for(i=0;i<2;i++){
-                ul.animate({
-                    marginTop: '-1050px'
-                },{
-                    duration: 1500,
-                    easing: "linear",
-                    fill: "both"
-                })
-            }
+    setTimeout(function() {
+        console.log('stop');
+        for(i=0;i<2;i++){
             ul.animate({
-                marginTop: '-1000px'
+                marginTop: '-1050px'
             },{
-                duration: 1500,
-                easing: "ease-out",
+                duration: 1750,
+                easing: "linear",
                 fill: "both"
             })
-        },100)
-        touch += 1;
-    } else {
-        //alert("추첨은 한 번만 가능합니다.");
-        alert("초기화해주시길 바랍니다.")
-    }
+        }
+        ul.animate({
+            marginTop: '-1000px'
+        },{
+            duration: 1750,
+            easing: "ease-out",
+            fill: "both"
+        })
+    },100)
 }
 
 function reset() {
@@ -228,5 +227,17 @@ function reset() {
         duration: 1,
         fill: "both"
     })
-    touch -= 1;
+    touch += 1;
+}
+
+function draw() {
+    if(touch==0){
+        roulette();
+        touch += 1;
+        console.log(touch);
+    } else {
+        reset();
+        setTimeout(roulette(),50);
+        console.log(touch);
+    }
 }
